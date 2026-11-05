@@ -41,3 +41,12 @@ jobs:
       - name: Test Oracle connection
         run: |
           ssh deploy@100.65.200.35 "whoami && hostname"
+      
+      - name: Deploy website
+        run: |
+          rsync -az --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= \
+            ./ deploy@100.65.200.35:/var/www/web.nerdmaxxing.com/
+
