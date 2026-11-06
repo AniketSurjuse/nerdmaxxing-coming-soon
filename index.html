@@ -275,7 +275,9 @@ footer small{color:var(--muted)}
 .doc .updated{margin-top:28px;color:var(--muted);font-size:.85rem}
 
 @media (max-width:860px){
-  .top nav{display:none}
+  .top nav{display:flex;flex:0 0 auto}
+  .top nav a:not(.blog-link){display:none}
+  .top nav .blog-link{padding-inline:.4em}
   .panel{grid-template-columns:minmax(0,1fr)}
   .panel.flip .copy{order:0}
   .panel.has-phone{padding-bottom:0}
@@ -287,7 +289,13 @@ footer small{color:var(--muted)}
 @media (max-width:520px){
   .ask{flex-direction:column;align-items:stretch;border-radius:28px;padding:18px;text-align:center}
   .ask .btn{width:100%}
+  .top .wrap{gap:10px}
   .top .btn{padding:.8em 1.1em;font-size:.9rem}.lockup{font-size:1.05rem}
+}
+@media (max-width:360px){
+  .top .wrap{gap:6px}
+  .top .lockup{font-size:.92rem}
+  .top .btn{padding:.7em .7em;font-size:.82rem}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.ic{transition:none!important}}
 </style>
@@ -297,7 +305,7 @@ footer small{color:var(--muted)}
 
 <header class="top"><div class="wrap">
   <a class="lockup" href="./" aria-label="NerdMaxxing home"><b>NERD</b><i>MAXXING</i></a>
-  <nav aria-label="Main"><a href="#discover">Discover</a><a href="#challenges">Challenges</a><a href="#rank">Rank</a><a href="#community">Community</a></nav>
+  <nav aria-label="Main"><a href="#discover">Discover</a><a href="#challenges">Challenges</a><a href="#rank">Rank</a><a href="#community">Community</a><a class="blog-link" href="/blog">Blog</a></nav>
   <a class="btn" href="https://drive.google.com/file/d/1ZO-66O8Qm8uSnxIzHNfwJotaNQxSm5QU/view?usp=sharing" target="_blank" rel="noopener">Download APK</a>
 </div></header>
 
@@ -413,7 +421,7 @@ footer small{color:var(--muted)}
 
 <footer><div class="wrap">
   <a class="lockup" href="./" aria-label="NerdMaxxing home"><b>NERD</b><i>MAXXING</i></a>
-  <nav aria-label="Footer"><a href="/privacy">Privacy</a><span>hello@nerdmaxxing.com</span></nav>
+  <nav aria-label="Footer"><a href="/blog">Blog</a><a href="/privacy">Privacy</a><span>hello@nerdmaxxing.com</span></nav>
   <small>© 2026 NerdMaxxing</small>
 </div></footer>
 
