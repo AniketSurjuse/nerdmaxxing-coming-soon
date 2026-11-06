@@ -87,7 +87,7 @@ dl.list{margin:0;border-bottom:2px solid var(--ink)}
 
 footer{padding:36px 0 48px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:16px 36px;align-items:center;justify-content:space-between}
-footer nav{display:flex;gap:24px;font-weight:500;font-size:.98rem}
+footer nav{display:flex;flex-wrap:wrap;gap:16px 24px;font-weight:500;font-size:.98rem}
 footer nav a{text-decoration:none}footer nav a:hover{text-decoration:underline}
 footer small{color:var(--muted)}
 
@@ -282,6 +282,7 @@ footer small{color:var(--muted)}
   .panel.flip .copy{order:0}
   .panel.has-phone{padding-bottom:0}
   .stage::before{width:120%;bottom:-40%}
+  .stage{min-width:0;overflow-x:clip}
   .phone-wrap{max-height:400px}
   .list .item{grid-template-columns:minmax(0,1fr);gap:4px}
   .tiles{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:20px}
