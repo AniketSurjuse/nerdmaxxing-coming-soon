@@ -47,6 +47,5 @@ jobs:
           rsync -az --delete \
             --exclude='.git/' \
             --exclude='.github/' \
-            --chmod=Du=rwx,Dg=rx,Do=,Fu=rw,Fg=r,Fo= \
+            --chmod=D2750,F640 \
             ./ deploy@100.65.200.35:/var/www/web.nerdmaxxing.com/
-
