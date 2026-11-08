@@ -194,11 +194,13 @@ footer{color:var(--muted);font-size:.86rem}footer small{font-size:.82rem}footer 
     var frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+id;frame.title=title||'YouTube video';frame.loading='lazy';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';frame.referrerPolicy='strict-origin-when-cross-origin';frame.allowFullscreen=true;parent.appendChild(frame);
   }
   function inlineMarkdown(parent,text){
-    var pattern=/(\[!\[[^\]]*\]\([^)]+\)\]\([^)]+\)|!?\[[^\]]*\]\([^)]+\)|\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\*[^*]+\*|_[^_]+_)/g,match,last=0;
+    var pattern=/(\[!\[[^\]]*\]\([^)]+\)\]\([^)]+\)|@\[youtube\]\([^)]+\)|!?\[[^\]]*\]\([^)]+\)|\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\*[^*]+\*|_[^_]+_)/gi,match,last=0;
     while((match=pattern.exec(text))){parent.appendChild(document.createTextNode(text.slice(last,match.index)));var token=match[0],node=null,handled=false;
+      var youtubeEmbed=token.match(/^@\[youtube\]\(([^)]+)\)$/i);
       var linkedImage=token.match(/^\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)$/);
       var image=token.match(/^!\[([^\]]*)\]\(([^)]+)\)$/),link=token.match(/^\[([^\]]*)\]\(([^)]+)\)$/);
-      if(linkedImage){var linkedVideoId=youtubeVideoId(linkedImage[3]),linkedUrl=safeUrl(linkedImage[3]),thumbnailUrl=safeUrl(linkedImage[2]);if(linkedVideoId){appendVideo(parent,linkedVideoId,linkedImage[1]);handled=true}else if(linkedUrl&&thumbnailUrl){node=document.createElement('a');node.href=linkedUrl;node.target='_blank';node.rel='noopener noreferrer';var thumbnail=document.createElement('img');thumbnail.src=thumbnailUrl;thumbnail.alt=linkedImage[1];thumbnail.loading='lazy';node.appendChild(thumbnail)}}
+      if(youtubeEmbed){var embedId=youtubeVideoId(youtubeEmbed[1]);if(embedId){appendVideo(parent,embedId,'YouTube video');handled=true}}
+      else if(linkedImage){var linkedVideoId=youtubeVideoId(linkedImage[3]),linkedUrl=safeUrl(linkedImage[3]),thumbnailUrl=safeUrl(linkedImage[2]);if(linkedVideoId){appendVideo(parent,linkedVideoId,linkedImage[1]);handled=true}else if(linkedUrl&&thumbnailUrl){node=document.createElement('a');node.href=linkedUrl;node.target='_blank';node.rel='noopener noreferrer';var thumbnail=document.createElement('img');thumbnail.src=thumbnailUrl;thumbnail.alt=linkedImage[1];thumbnail.loading='lazy';node.appendChild(thumbnail)}}
       else if(image){var videoId=youtubeVideoId(image[2]),imageUrl=safeUrl(image[2]);if(videoId){appendVideo(parent,videoId,image[1]);handled=true}else if(imageUrl){node=document.createElement('img');node.src=imageUrl;node.alt=image[1];node.loading='lazy'}}
       else if(link){var linkUrl=safeUrl(link[2]);if(linkUrl){node=document.createElement('a');node.href=linkUrl;node.textContent=link[1];node.target='_blank';node.rel='noopener noreferrer'}}
       else if(token.slice(0,2)==='**'||token.slice(0,2)==='__'){node=document.createElement('strong');node.textContent=token.slice(2,-2)}
